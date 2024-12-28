@@ -26,7 +26,7 @@ const UserSchema = new Schema({
     type: String,
     // required: true,
   },
-  userType: {
+  usertype: {
     type: String
   }
 });

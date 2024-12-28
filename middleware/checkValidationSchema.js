@@ -10,14 +10,23 @@ const checkValidationSchema = (schema) => {
       );
       next();
     } catch (err) {
+
+      let errors = {};
+      err.details.map((el) => {
+        errors[el.context.key] = {
+          field: el.context.key,
+          msg: el.message
+        }
+      })
       return res.status(400).send({
         msg: "validation error",
-        errors: err.details.map((el) => {
-          return {
-            field: el.context.key,
-            msg: el.message,
-          };
-        }),
+        errors
+        // err.details.map((el) => {
+        //   return {
+        //     field: el.context.key,
+        //     msg: el.message,
+        //   };
+        // }),
       });
     }
   };
