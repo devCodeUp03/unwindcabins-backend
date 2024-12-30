@@ -1,5 +1,5 @@
 const express = require("express");
-const { signup, login, getUser, removeUser, getOneUser } = require("../controller/user");
+const { signup, login, getUsers, removeUser, getOneUser, getUserDetail, removeUserById } = require("../controller/user");
 const checkValidationSchema = require("../middleware/checkValidationSchema");
 const Joi = require("joi");
 const { checkAuthentication } = require("../middleware/checkAuthentication");
@@ -41,8 +41,10 @@ const loginValidationSchema = Joi.object({
 router.post("/signup", checkValidationSchema(signupValidationSchema), signup);
 // router.post("/signup", signup);
 router.post("/login", checkValidationSchema(loginValidationSchema), login);
-router.get("/getusers", getUser);
+router.get("/getusers", getUsers);
 router.get("/getuser", checkAuthentication, getOneUser);
 router.delete("/deleteUser/:email", removeUser);
+router.get("/getuserdetail/:id",  getUserDetail);
+router.delete("/removeuserbyid/:id", removeUserById);
 
 module.exports = router;

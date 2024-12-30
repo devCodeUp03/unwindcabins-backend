@@ -1,5 +1,5 @@
 const express = require("express");
-const { fetchCabins, postCabin, deleteCabin, postInspirationCabin, fetchInspirationCabins, fetchOneCabin, fetchOneInspirationCabin } = require("../controller/cabin");
+const { fetchCabins, postCabin, deleteCabin, postInspirationCabin, fetchInspirationCabins, fetchOneCabin, fetchOneInspirationCabin, searchCabinByNameOrByPlace } = require("../controller/cabin");
 const 
 router = express.Router()
 
@@ -11,5 +11,6 @@ router.post("", postCabin);
 router.delete("/:id", deleteCabin);
 router.get("/getCabins/one/:id", fetchOneCabin);
 router.get("/inspirationcabins/one/:id", fetchOneInspirationCabin);
+router.post("/cabins/search", searchCabinByNameOrByPlace);
 
 module.exports = router;

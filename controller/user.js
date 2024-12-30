@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { ADMIN, SECRET_KEY } = require("../constant/role");
 
-const getUser = async (req, res) => {
+const getUsers = async (req, res) => {
   let users = await User.find({});
   res.send(users);
 };
@@ -14,10 +14,29 @@ const getOneUser = async (req, res) => {
   return res.send(user);
 };
 
+const getUserDetail = async (req, res) => {
+  let {id} = req.params;
+  let user = await User.findById({_id: id});
+  user.password = undefined;
+  res.send(user);
+}
+
+
+
 const removeUser = async (req, res) => {
   try {
     let { email } = req.params;
     let removedUser = await User.deleteOne({ email });
+    res.send(removedUser);
+  } catch (err) {
+    res.send(err);
+  }
+};
+const removeUserById = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let removedUser = await User.deleteOne({ _id: id });
+    console.log(removedUser);
     res.send(removedUser);
   } catch (err) {
     res.send(err);
@@ -37,10 +56,11 @@ const updateUser = async (req, res) => {
 const signup = async (req, res, next) => {
   try {
     let newUser = req.body;
+    console.log(newUser);
     let imagePath = null;
     if (
       newUser.usertype == ADMIN &&
-      newUser.secretKey != SECRET_KEY
+      newUser.secretkey != SECRET_KEY
       // newUser.userType != ADMIN
     ) {
       return res.status(403).send({
@@ -128,4 +148,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, getUser, removeUser, getOneUser };
+module.exports = { signup, login, getUsers, removeUser, getOneUser, getUserDetail, removeUserById };

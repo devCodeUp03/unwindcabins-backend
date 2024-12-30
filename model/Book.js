@@ -1,32 +1,32 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.Types.ObjectId;
 
 const BookSchema = new Schema({
-  cabins: [
-    {
-      _id: ObjectId, //id of the cabin
-      rate: {
-        type: Number,
-        required: true,
-      },
-      place: {
-        type: String,
-        required: true,
-      },
-      travellers: {
-        type: Number,
-        required: true,
-      },
-      checkin: {
-        type: Date,
-        required: true,
-      },
-      checkout: {
-        type: Date,
-        required: true,
-      },
-    },
-  ],  
+  cabinId: {
+    type: ObjectId,
+    required: true,
+  }, //id of the cabin
+  rate: {
+    type: Number,
+    required: true,
+  },
+  cabinName: {
+    type: String,
+    required: true,
+  },
+  travellers: {
+    type: Number,
+    required: true,
+  },
+  checkin: {
+    type: Date,
+    required: true,
+  },
+  checkout: {
+    type: Date,
+    required: true,
+  },
   bookedBy: {
     type: ObjectId,
     required: true,

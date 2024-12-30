@@ -15,6 +15,24 @@ const fetchOneCabin = async (req, res) => {
   res.send(cabin);
 }
 
+const searchCabinByNameOrByPlace = async (req, res) => {
+
+  let { cabinOrPlace } = req.body;
+
+  const cabins = await Cabin.find({
+    $or: [
+      { cabinName: { $regex: cabinOrPlace, $options: "i" } }, // Case-insensitive match
+      { placeName: { $regex: cabinOrPlace, $options: "i" } },
+    ],
+  });
+
+  if(!cabins) {
+      res.status(404).send("cabins not found");
+  } 
+  res.send(cabins)
+ 
+}
+
 const fetchOneInspirationCabin = async (req, res) => {
   const id = req.params.id;
   let inspirationCabin = await InspirationCabin.findOne({_id: id});
@@ -90,5 +108,6 @@ module.exports = {
   postInspirationCabin,
   fetchInspirationCabins,
   fetchOneCabin, 
-  fetchOneInspirationCabin
+  fetchOneInspirationCabin,
+  searchCabinByNameOrByPlace
 };
