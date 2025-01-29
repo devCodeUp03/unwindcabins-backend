@@ -6,13 +6,12 @@ const InspirationCabinSchema = new Schema({
     type: String,
   },
   wish: {
-    type: String, 
-    required : true
+    type: String,
+    required: true,
   },
   action: {
     type: String,
-    required: true
-
+    required: true,
   },
 
   description: {
@@ -21,6 +20,9 @@ const InspirationCabinSchema = new Schema({
   },
 });
 
-const InspirationCabin = mongoose.model("InspirationCabin", InspirationCabinSchema);
+const InspirationCabin = mongoose.model(
+  "InspirationCabin",
+  InspirationCabinSchema
+);
 
 module.exports = InspirationCabin;

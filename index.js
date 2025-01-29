@@ -4,8 +4,10 @@ const cabinsRoutes = require("./route/cabin");
 const orderRoutes = require("./route/book");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
-const app = express();
 require("./config/database");
+
+
+const app = express();
 
 app.use(cors());
 app.use(express.json());
