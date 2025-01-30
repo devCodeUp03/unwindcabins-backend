@@ -5,6 +5,9 @@ const orderRoutes = require("./route/book");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 require("./config/database");
+require('dotenv').config()
+
+let port = process.env.PORT || 8000;
 
 
 const app = express();
@@ -21,4 +24,4 @@ app.use("/api/orders", orderRoutes);
 
 
 
-app.listen(8000, () => {console.log("server up and running at port 8000")});
+app.listen(port, () => {console.log("server up and running at port 8000")});
