@@ -60,6 +60,7 @@ app.use("/api/users", usersRoutes);
 app.listen(8000, () => {
   console.log("The server is up and running on port 8000...");
 });
+console.log("Hello")
 
 
 // mongoose.connect("mongodb://localhost:27017/unwindcabins");
