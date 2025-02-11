@@ -15,6 +15,7 @@ const bookCabin = async (req, res, next) => {
   try {
     await Book.create(book);
     res.status(200).send({ book, status: true });
+    console.log("book created");
   } catch (err) {
     res.send(err);
   }
