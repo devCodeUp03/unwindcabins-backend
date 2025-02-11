@@ -11,7 +11,7 @@ const checkValidationSchema = require("../middleware/checkValidationSchema");
 const router = express.Router();
 // checkValidationSchema(bookValidationSchema),
 
-router.post("/book", bookCabin);
+router.post("/book", checkValidationSchema(bookValidationSchema), bookCabin);
 router.delete("/book/cancel/:id", cancelCabin);
 router.delete("/book/delete/:id", deleteBook);
 

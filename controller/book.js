@@ -5,8 +5,8 @@ const Joi = require("joi");
 
 const bookValidationSchema = Joi.object({
   travellers: Joi.number().min(1).required(),
-  checkin: Joi.date().iso().required,
-  checkout: Joi.date().iso().required,
+  checkin: Joi.date().iso().required(),
+  checkout: Joi.date().iso().required(),
 });
 
 const bookCabin = async (req, res, next) => {
