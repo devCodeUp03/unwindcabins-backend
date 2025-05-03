@@ -108,7 +108,7 @@ const postInspirationCabin = async (req, res) => {
 //   let updatedCabin = {
 //     ...req.body,
 //     image
-    
+
 //   };
 
 //   let cabin = await Cabin.findByIdAndUpdate(id, updatedCabin,  {
@@ -121,21 +121,30 @@ const postInspirationCabin = async (req, res) => {
 const updateCabin = async (req, res) => {
   let { id } = req.params;
   let updatedCabin = { ...req.body };
+  let imagePath = req.body.image;
+
+
 
   if (req.files && req.files.image) {
     let rootPath = path.resolve();
     let imagePath = path
-      .join("/uploads/inspirationCabin", `${Date.now()}-${req.files.image.name}`)
+      .join(
+        "/uploads/inspirationCabin",
+        `${Date.now()}-${req.files.image.name}`
+      )
       .replaceAll("\\", "/");
 
     await req.files.image.mv(path.join(rootPath, imagePath));
-    updatedCabin.image = imagePath; 
+    updatedCabin = {
+      ...req.body,
+      image: imagePath
+    }
   }
 
   try {
     let cabin = await Cabin.findByIdAndUpdate(id, updatedCabin, {
       new: true,
-      runValidators: true, 
+      runValidators: true,
     });
 
     res.send("Cabin updated successfully");
