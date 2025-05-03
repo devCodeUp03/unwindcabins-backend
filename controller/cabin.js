@@ -91,31 +91,58 @@ const postInspirationCabin = async (req, res) => {
   }
 };
 
-const updateCabin = async (req, res) => {
-  let imagePath = null;
-  if (req.files) {
-    let rootPath = path.resolve();
-    imagePath = path
-      .join(
-        "/uploads/inspirationCabin",
-        `${Date.now()}-${req.files.image.name}`
-      )
-      .replaceAll("\\", "/");
-    req.files.image.mv(path.join(rootPath, imagePath));
-  }
-  image = imagePath;
-  let { id } = req.params;
-  let updatedCabin = {
-    ...req.body,
-    image
+// const updateCabin = async (req, res) => {
+//   let imagePath = null;
+//   if (req.files) {
+//     let rootPath = path.resolve();
+//     imagePath = path
+//       .join(
+//         "/uploads/inspirationCabin",
+//         `${Date.now()}-${req.files.image.name}`
+//       )
+//       .replaceAll("\\", "/");
+//     req.files.image.mv(path.join(rootPath, imagePath));
+//   }
+//   image = imagePath;
+//   let { id } = req.params;
+//   let updatedCabin = {
+//     ...req.body,
+//     image
     
-  };
+//   };
 
-  let cabin = await Cabin.findByIdAndUpdate(id, updatedCabin,  {
-    new: true,
-    runValidtors: true,
-  });
-  res.send("cabin updated successfully");
+//   let cabin = await Cabin.findByIdAndUpdate(id, updatedCabin,  {
+//     new: true,
+//     runValidtors: true,
+//   });
+//   res.send("cabin updated successfully");
+// };
+
+const updateCabin = async (req, res) => {
+  let { id } = req.params;
+  let updatedCabin = { ...req.body };
+
+  if (req.files && req.files.image) {
+    let rootPath = path.resolve();
+    let imagePath = path
+      .join("/uploads/inspirationCabin", `${Date.now()}-${req.files.image.name}`)
+      .replaceAll("\\", "/");
+
+    await req.files.image.mv(path.join(rootPath, imagePath));
+    updatedCabin.image = imagePath; 
+  }
+
+  try {
+    let cabin = await Cabin.findByIdAndUpdate(id, updatedCabin, {
+      new: true,
+      runValidators: true, 
+    });
+
+    res.send("Cabin updated successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error updating cabin");
+  }
 };
 
 const deleteCabin = async (req, res) => {
