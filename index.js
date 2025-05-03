@@ -5,10 +5,9 @@ const orderRoutes = require("./route/book");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 require("./config/database");
-require('dotenv').config()
+require('dotenv').config();
 
 let port = process.env.PORT || 8000;
-
 
 const app = express();
 
