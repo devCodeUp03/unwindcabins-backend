@@ -98,7 +98,7 @@ const signup = async (req, res, next) => {
         errors: {
           email: {
             field: "email",
-            msg: "email already exists",
+            msg: "email already exists, please try another email until valid",
           },
         },
       });
