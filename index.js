@@ -1,4 +1,5 @@
 const express = require("express");
+// import express from "express";
 const usersRoutes = require("./route/user")
 const cabinsRoutes = require("./route/cabin");
 const orderRoutes = require("./route/book");
@@ -6,6 +7,7 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 require("./config/database");
 require('dotenv').config();
+
 
 let port = process.env.PORT || 8000;
 
